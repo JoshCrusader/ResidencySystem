@@ -1,0 +1,74 @@
+{% extends 'superuser/Admin.html' %}
+{% block projectmanagement%} <a class="list-group-item activem" href="/ProjectManagement/">Project management</a>{% endblock %}
+
+{% block body %}
+<div class="page-header">
+    <h3><a href = "#">Project Management</a></h3>
+
+</div>
+  <!-- Trigger the modal with a button -->
+  <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#myModal" id = "CreateProj">Create a project</button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+          <form id = "project_form">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Create a Project</h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="form-group">
+                  <label for="usr">Project name:</label>
+                  <input type="text" class="form-control" id="pname">
+                </div>
+                <div id = "objs"></div>
+                <button type="button" class="btn btn-default" onclick = "AddObjective()">Add Objective</button>
+            </div>
+
+
+            <div class="modal-footer">
+                <input type = "submit" class="btn btn-primary btn-md"  name = "submit" value = "Submit" id = "">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </form>
+      </div>
+
+    </div>
+  </div>
+    <!-- Modal -->
+<div class="input-group pull-left">
+
+        <input type="text" class="form-control" placeholder="Search" style = "width: 300px;">
+        <div class="input-group-btn pull-left">
+          <button class="btn btn-default" type="submit">
+            <i class="glyphicon glyphicon-search"></i>
+          </button>
+        </div>
+
+</div>
+
+<br><br><br><br>
+    <div id = "project_body">
+
+    </div>
+    {% for i in Projects reversed %}
+        <a id = "project_panel" href="/project/{{ i.id }}">
+            <div class = "col-md-4">
+                <div class="panel panel-default">
+                  <div class="panel-heading">{{ i.name }}</div>
+                    {% if i.team == None %}
+                        <div class="panel-body">No Team Assigned</div>
+                    {% else %}
+                        <div class="panel-body">{{ i.team.name }}</div>
+                    {% endif %}
+                </div>
+            </div>
+        </a>
+    {% endfor %}
+
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'superuser/Admin.html' %}
+{% block AMmain %}<a class="list-group-item activem" href="#">Account Management</a> {% endblock %}
+{% block AMli %}<a href = "/superuser/" class = "activem"> Account Management </a> {% endblock %}
+{% block body %}
+<div class="page-header">
+    <h3><a href = "#">Account Management</a></h3>
+
+</div>
+
+<!--<button type="button" class="btn btn-danger pull-right">Delete user</button>-->
+<div class="input-group pull-left">
+        <input type="text" class="form-control" placeholder="Search" style = "width: 300px;">
+        <div class="input-group-btn pull-left">
+          <button class="btn btn-default" type="submit">
+            <i class="glyphicon glyphicon-search"></i>
+          </button>
+        </div>
+</div>
+<br><br><br><br>
+<div class="container">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Firstname</th>
+        <th>Lastname</th>
+        <th>Email</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for i in users %}
+          {% if i.valid == True %}
+            <tr id = {{ i.user.username }}>
+                <td> {{i.user.first_name}} </td>
+                <td> {{i.user.last_name}} </td>
+                <td> {{i.user.email}} </td>
+                <td style = "width:10px;"><button type="button" class="btn btn-danger" onclick = "reject(this, {{ i.user.username }})" value =  {{i.user.username}}><span class = "glyphicon glyphicon-remove"></span></button></td>
+
+            </tr>
+          {% endif %}
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

@@ -1,0 +1,167 @@
+{% extends 'superuser/Admin.html' %}
+{% block projectmanagement%} <a class="list-group-item activem" href="/ProjectManagement/">Project management</a>{% endblock %}
+
+
+{% block body %}
+<br>
+<h1>{{ proj.name }}</h1>
+<hr>
+<div class="panel panel-default col-md-12">
+    <h2>Specs</h2>
+<form method = "POST" action = "/project/{{ proj.id }}/">{% csrf_token %}
+  <div class="panel-body">
+      <input type = "text" name = "STAT" value = "{{ proj.stat }}" placeholder="Enter status"/>
+      <textarea onkeyup="update(this)" class="form-control" rows="5" id="SPECS" name = "SPECS">{{ proj.specs }}</textarea>
+  </div>
+  <div class="panel-body">
+      <input type="submit" class="btn btn-primary" name="submit" value="Update"/>
+  </div>
+</form>
+</div>
+
+<div class="panel panel-default col-md-3">
+  <div class="panel-body">
+      <h3>Objectives</h3>
+        <div class="progress">
+          <div class="progress-bar progress-bar-striped active" role="progressbar"
+          aria-valuenow="{{ perc }}" aria-valuemin="0" aria-valuemax="100" style="width:{{ perc }}%;color:white;">
+              {{ perc }}%
+          </div>
+        </div>
+      {% for i in objectives %}
+        <div class="checkbox">
+          <label><input type="checkbox" class = "objectbox" value="{{ i.id }}"
+          {% if i.done == True %}
+              checked
+          {% endif %}>{{ i.name }}</label>
+        </div>
+      {% endfor %}
+  </div>
+</div>
+
+<div class="panel panel-default col-md-6 pull-right">
+  <div class="panel-body">
+      {% if proj.team == None %}
+        <h2>There is no team assigned to this project</h2>
+      {% else %}
+          <h2>{{ proj.team.name }}</h2>
+          <p>Team members</p>
+          <ul>
+          {% for x in members %}
+            <li>{{ x.user.first_name }} {{ x.user.last_name }}</li>
+          {% endfor %}
+          </ul>
+      {% endif %}
+  </div>
+</div>
+
+
+
+<div class = "col-md-12">
+
+    <div class="container">
+        <div class="page-header">
+            <hr>
+            <h1 id="timeline" align="center">Progress</h1>
+        </div>
+        <ul class="timeline">
+            <li>
+              <div class="timeline-badge"><i class="glyphicon glyphicon-check"></i></div>
+              <div class="timeline-panel">
+                <div class="timeline-heading">
+                  <h4 class="timeline-title">Mussum ipsum cacilds</h4>
+                  <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> 11 hours ago via Twitter</small></p>
+                </div>
+                <div class="timeline-body">
+                  <p>Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá , depois divoltis porris, paradis. Paisis, filhis, espiritis santis. Mé faiz elementum girarzis, nisi eros vermeio, in elementis mé pra quem é amistosis quis leo. Manduma pindureta quium dia nois paga. Sapien in monti palavris qui num significa nadis i pareci latim. Interessantiss quisso pudia ce receita de bolis, mais bolis eu num gostis.</p>
+                </div>
+              </div>
+            </li>
+            <li class="timeline-inverted">
+              <div class="timeline-badge"><i class="glyphicon glyphicon-check"></i></div>
+              <div class="timeline-panel">
+                <div class="timeline-heading">
+                  <h4 class="timeline-title">Mussum ipsum cacilds</h4>
+                  <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> 11 hours ago via Twitter</small></p>
+                </div>
+                <div class="timeline-body">
+                  <p>Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá , depois divoltis porris, paradis. Paisis, filhis, espiritis santis. Mé faiz elementum girarzis, nisi eros vermeio, in elementis mé pra quem é amistosis quis leo. Manduma pindureta quium dia nois paga. Sapien in monti palavris qui num significa nadis i pareci latim. Interessantiss quisso pudia ce receita de bolis, mais bolis eu num gostis.</p>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="timeline-badge"><i class="glyphicon glyphicon-check"></i></div>
+              <div class="timeline-panel">
+                <div class="timeline-heading">
+                  <h4 class="timeline-title">Mussum ipsum cacilds</h4>
+                  <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> 11 hours ago via Twitter</small></p>
+                </div>
+                <div class="timeline-body">
+                  <p>Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá , depois divoltis porris, paradis. Paisis, filhis, espiritis santis. Mé faiz elementum girarzis, nisi eros vermeio, in elementis mé pra quem é amistosis quis leo. Manduma pindureta quium dia nois paga. Sapien in monti palavris qui num significa nadis i pareci latim. Interessantiss quisso pudia ce receita de bolis, mais bolis eu num gostis.</p>
+                </div>
+              </div>
+            </li>
+            <li class="timeline-inverted">
+              <div class="timeline-badge"><i class="glyphicon glyphicon-check"></i></div>
+              <div class="timeline-panel">
+                <div class="timeline-heading">
+                  <h4 class="timeline-title">Mussum ipsum cacilds</h4>
+                  <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> 11 hours ago via Twitter</small></p>
+                </div>
+                <div class="timeline-body">
+                  <p>Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá , depois divoltis porris, paradis. Paisis, filhis, espiritis santis. Mé faiz elementum girarzis, nisi eros vermeio, in elementis mé pra quem é amistosis quis leo. Manduma pindureta quium dia nois paga. Sapien in monti palavris qui num significa nadis i pareci latim. Interessantiss quisso pudia ce receita de bolis, mais bolis eu num gostis.</p>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="timeline-badge"><i class="glyphicon glyphicon-check"></i></div>
+              <div class="timeline-panel">
+                <div class="timeline-heading">
+                  <h4 class="timeline-title">Mussum ipsum cacilds</h4>
+                  <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> 11 hours ago via Twitter</small></p>
+                </div>
+                <div class="timeline-body">
+                  <p>Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá , depois divoltis porris, paradis. Paisis, filhis, espiritis santis. Mé faiz elementum girarzis, nisi eros vermeio, in elementis mé pra quem é amistosis quis leo. Manduma pindureta quium dia nois paga. Sapien in monti palavris qui num significa nadis i pareci latim. Interessantiss quisso pudia ce receita de bolis, mais bolis eu num gostis.</p>
+                </div>
+              </div>
+            </li>
+            <li class="timeline-inverted">
+              <div class="timeline-badge"><i class="glyphicon glyphicon-check"></i></div>
+              <div class="timeline-panel">
+                <div class="timeline-heading">
+                  <h4 class="timeline-title">Mussum ipsum cacilds</h4>
+                  <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> 11 hours ago via Twitter</small></p>
+                </div>
+                <div class="timeline-body">
+                  <p>Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá , depois divoltis porris, paradis. Paisis, filhis, espiritis santis. Mé faiz elementum girarzis, nisi eros vermeio, in elementis mé pra quem é amistosis quis leo. Manduma pindureta quium dia nois paga. Sapien in monti palavris qui num significa nadis i pareci latim. Interessantiss quisso pudia ce receita de bolis, mais bolis eu num gostis.</p>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="timeline-badge"><i class="glyphicon glyphicon-check"></i></div>
+              <div class="timeline-panel">
+                <div class="timeline-heading">
+                  <h4 class="timeline-title">Mussum ipsum cacilds</h4>
+                  <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> 11 hours ago via Twitter</small></p>
+                </div>
+                <div class="timeline-body">
+                  <p>Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá , depois divoltis porris, paradis. Paisis, filhis, espiritis santis. Mé faiz elementum girarzis, nisi eros vermeio, in elementis mé pra quem é amistosis quis leo. Manduma pindureta quium dia nois paga. Sapien in monti palavris qui num significa nadis i pareci latim. Interessantiss quisso pudia ce receita de bolis, mais bolis eu num gostis.</p>
+                </div>
+              </div>
+            </li>
+            <li class="timeline-inverted">
+              <div class="timeline-badge"><i class="glyphicon glyphicon-check"></i></div>
+              <div class="timeline-panel">
+                <div class="timeline-heading">
+                  <h4 class="timeline-title">Mussum ipsum cacilds</h4>
+                  <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> 11 hours ago via Twitter</small></p>
+                </div>
+                <div class="timeline-body">
+                  <p>Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá , depois divoltis porris, paradis. Paisis, filhis, espiritis santis. Mé faiz elementum girarzis, nisi eros vermeio, in elementis mé pra quem é amistosis quis leo. Manduma pindureta quium dia nois paga. Sapien in monti palavris qui num significa nadis i pareci latim. Interessantiss quisso pudia ce receita de bolis, mais bolis eu num gostis.</p>
+                </div>
+              </div>
+            </li>
+        </ul>
+    </div>
+</div>
+{% endblock %}
