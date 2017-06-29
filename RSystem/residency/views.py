@@ -49,7 +49,7 @@ def requestApproval(request):
     return render(request, 'superuser/AccountApproval.html', {'Acc': Acc.objects.all()})
 
 def teamManagement(request):
-    return render(request, 'superuser/TeamManagement.html', {'Acc': Acc.objects.all(),'Teams':Team.objects.all()})
+    return render(request, 'superuser/TeamManagement.html', {'Acc': Acc.objects.filter(valid = True),'Teams':Team.objects.all()})
 
 def assignProject(request):
     return render(request, 'superuser/AssignProject.html', {'Acc': Acc.objects.all(),'Teams':Team.objects.all(), 'Projects':Project.objects.filter(team = None)})
@@ -165,13 +165,13 @@ def selectt(request):
     if(request.method == "POST"):
         leteam = Team.objects.get(id = int(request.POST.get("id")))
         tn = leteam.name
-        for i in Acc.objects.filter(team =None):
+        for i in Acc.objects.filter(team =None).filter(valid = True):
             print('cool')
             addlist = []
             addlist.append(i.user.first_name +" "+i.user.last_name)
             addlist.append(i.id)
             notlist.append(addlist)
-        for i in Acc.objects.exclude(team__isnull = True).exclude(team = leteam):
+        for i in Acc.objects.exclude(team__isnull = True).exclude(team = leteam).filter(valid = True):
             print('cool')
             addlist = []
             addlist.append(i.user.first_name + " " + i.user.last_name)
@@ -190,14 +190,14 @@ def joinrequest(request):
         acc = Acc.objects.get(id = request.POST.get("id"))
         acc.team = team
         acc.save()
-    return JsonResponse({'id': request.POST.get("id"),'name':acc.user.first_name})
+    return JsonResponse({'id': request.POST.get("id"),'name':(acc.user.first_name+" "+acc.user.last_name)})
 
 def removerequest(request):
     if(request.method == "POST"):
         acc = Acc.objects.get(id = request.POST.get("id"))
         acc.team = None
         acc.save()
-    return JsonResponse({'id': request.POST.get("id"),'name':acc.user.first_name})
+    return JsonResponse({'id': request.POST.get("id"),'name':(acc.user.first_name+" "+acc.user.last_name)})
 
 def assignproj(request):
     if(request.method == "POST"):
