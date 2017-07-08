@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load staticfiles %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+    <title>Home</title>
+    {% block scriptpage %} {% endblock %}
+    <script src="{% static 'normie/AutoSize.js' %}"></script>
+    <script src="{% static 'normie/residency.js' %}"></script>
+    <script src="{% static 'normie/../../static/normie/basic.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'normie/user.css' %}" type = 'text/css'/>
+    <link rel="stylesheet" type="text/css" href="{% static 'normie/timeline.css' %}" type = 'text/css'/>
+</head>
+<body>
+    <div id = "main-container">
+        <div class = "custom-navtop" id = "navy-topy" style = "">
+            <div class = "inner-nav">
+                <ul>
+                    <li id = "starter"><img src="{% static 'comet.png' %}"></li>
+                    <li class = "list-element"><a href = "/homepage/">Dashboard</a></li>
+                    <li class = "list-element"><a href = "/ManageSched/">Schedule</a></li>
+                    <li class = "list-element"  style = "float:right;"><a href = "/home/" onclick = "testlogout()">Logout</a></li>
+                    <li style = "float:right;"><a>Hi {% block person %}name{% endblock %}!</a></li>
+
+                </ul>
+            </div>
+        </div>
+
+        <div class="Faker">
+
+        </div>
+    {% block body %}
+        <div class = "main-body">
+            <div class = "body_container">
+
+                <p>Some text...</p>
+                <p>Some text...</p><p>Some text...</p><p>Some text...</p><p>Some text...</p><p>Some text...</p>
+
+            </div>
+
+        </div>
+    </div>
+    {% endblock %}
+
+
+</body>
+</html>

@@ -1,0 +1,166 @@
+{% extends 'superuser/Admin.html' %}
+{% load staticfiles %}
+{% block additionals %} <script src="{% static 'superuser/SchedM.js' %}"></script>{% endblock %}
+{% block schedmanagement%} <a class="list-group-item activem" href="/CubicleAssignment/">Assign cubicles</a>{% endblock %}
+
+{% block body %}
+
+<div class="page-header">
+    <h3><a href = "#">Assign cubicle</a></h3>
+
+</div>
+
+
+<br><br><br><br>
+<div class="container">
+  <div class="panel panel-default col-md-6" style = "overflow-y: auto;height: 500px;">
+      <div class="panel-body">
+          <h4 id = "TeamPangalan">Team name</h4>
+          <div class="input-group pull-left">
+                <input type="text" class="form-control" placeholder="Search" style = "width: 300px;">
+                <div class="input-group-btn pull-left">
+                  <button class="btn btn-default" type="submit">
+                    <i class="glyphicon glyphicon-search"></i>
+                  </button>
+                </div>
+          </div>
+           <!-- Trigger the modal with a button -->
+          <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#myModal" id = "CreateTeam">Create Team</button>
+
+          <!-- Modal -->
+          <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+
+              <!-- Modal content-->
+              <div class="modal-content">
+                  <form id = "team_form">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      <h4 class="modal-title">Create a Project</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="form-group">
+                          <label for="usr">Team name:</label>
+                          <input type="text" class="form-control" id="tname">
+                        </div>
+                    </div>
+
+
+                    <div class="modal-footer">
+                        <input type = "submit" class="btn btn-primary btn-md"  name = "submit" value = "Create Team" id = "">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                  </form>
+              </div>
+
+            </div>
+          </div>
+            <!-- Modal -->
+          <br><br><br>
+          <div id = "tbody"></div>
+          {% for i in Teams reversed %}
+              <a href = "#" style = "text-decoration: None;color:black;">
+            <div class="panel panel-default" onclick = "getScheds(this);" name = "{{ i.id }}">
+                <div class="panel-body"> {{ i.name }}
+                </div>
+            </div>
+              </a>
+          {% endfor %}
+       </div>
+  </div>
+  <div class="panel panel-default col-md-4" style = "overflow-y: auto;height: 200px;margin-left:50px;">
+      <div class="panel-body">
+          <select id = "cubval" style = "display:None;">
+                  <option value="LEXELL">LEXELL</option>
+                  <option value="BORRELY">BORRELY</option>
+                  <option value="MCNAUGHT">MCNAUGHT</option>
+                  <option value="ENCKE">ENCKE</option>
+            </select>
+          <table class="table">
+            <thead>
+              <tr>
+                <th class ="col-md-10">Schedule</th>
+              </tr>
+            </thead>
+            <tbody id = "schedlist">
+            </tbody>
+          </table>
+      </div>
+  </div>
+  <div class="panel panel-default col-md-4" style = "overflow-y: auto;height: 280px;margin-left:50px;">
+      <div class="panel-body">
+          <h4 id = "cuname">Cubicle</h4>
+          <table class="table">
+            <thead>
+              <tr>
+                <th class ="col-md-2"></th>
+                <th class ="col-md-2">M</th>
+                <th class ="col-md-2">T</th>
+                <th class ="col-md-2">W</th>
+                <th class ="col-md-2">H</th>
+                <th class ="col-md-2">F</th>
+
+              </tr>
+            </thead>
+            <tbody id = "slotlist">
+              <tr>
+                <th class ="col-md-2 time1">07:30-09:00</th>
+                <th class ="col-md-2 1day1"></th>
+                <th class ="col-md-2 1day2"></th>
+                <th class ="col-md-2 1day3"></th>
+                <th class ="col-md-2 1day4"></th>
+                <th class ="col-md-2 1day5"></th>
+
+              </tr>
+              <tr>
+                <th class ="col-md-2 time2">09:15-10:45</th>
+                <th class ="col-md-2 2day1"></th>
+                <th class ="col-md-2 2day2"></th>
+                <th class ="col-md-2 2day3"></th>
+                <th class ="col-md-2 2day4"></th>
+                <th class ="col-md-2 2day5"></th>
+
+              </tr>
+              <tr>
+                <th class ="col-md-2 time3">11:00-12:30</th>
+                <th class ="col-md-2 3day1"></th>
+                <th class ="col-md-2 3day2"></th>
+                <th class ="col-md-2 3day3"></th>
+                <th class ="col-md-2 3day4"></th>
+                <th class ="col-md-2 3day5"></th>
+
+              </tr>
+              <tr>
+                <th class ="col-md-2 time4">12:45-02:15</th>
+                <th class ="col-md-2 4day1"></th>
+                <th class ="col-md-2 4day2"></th>
+                <th class ="col-md-2 4day3"></th>
+                <th class ="col-md-2 4day4"></th>
+                <th class ="col-md-2 4day5"></th>
+
+              </tr>
+              <tr>
+                <th class ="col-md-2 time5">02:30-04:00</th>
+                <th class ="col-md-2 5day1"></th>
+                <th class ="col-md-2 5day2"></th>
+                <th class ="col-md-2 5day3"></th>
+                <th class ="col-md-2 5day4"></th>
+                <th class ="col-md-2 5day5"></th>
+
+              </tr>
+              <tr>
+                <th class ="col-md-2 time6">04:15-05:45</th>
+                <th class ="col-md-2 6day1"></th>
+                <th class ="col-md-2 6day2"></th>
+                <th class ="col-md-2 6day3"></th>
+                <th class ="col-md-2 6day4"></th>
+                <th class ="col-md-2 6day5"></th>
+
+              </tr>
+            </tbody>
+          </table>
+      </div>
+  </div>
+</div>
+{% endblock %}

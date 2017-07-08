@@ -1,0 +1,41 @@
+{% extends 'normuser/homepage.html' %}
+
+{% block person %} {{ me.first_name }} {% endblock %}
+
+{% block body %}
+<div class = "main-body">
+            <div class = "body_container">
+                {% for i in allProjects %}
+                    <a href = "/MyAssignment/{{ i.0.id }}">
+                    <div class="myPanel syz-md-3 pull-left">
+                        <div class = "panel-head"><h3>{{ i.0.name }}</h3></div>
+                        <div class = "panel-bod">
+                            {% for x in objectives %}
+                                {% if x.project == i.0 %}
+                                    <p style = "margin-left: 5px;">
+                                        {% if x.done == True %}
+                                            <label style = "color:black;">[✔] {{ x.name }} - {{ x.points }}</label>
+                                        {% else %}
+                                            <label style = "color:darkred;">[✘] {{ x.name }} - {{ x.points }}</label>
+                                        {% endif %}
+                                        </p>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+
+                        <div class = "panel-feet">
+                            <div class = "myLoadBar" saikotama = "{{ i.3 }}">
+
+                                <div class = "initLoad">{{ i.2 }}/{{ i.1 }}</div>
+                            </div>
+                        </div>
+
+                    </div>
+                    </a>
+                {% endfor %}
+            </div>
+
+
+</div>
+<div position:center style = "color:white; width:100%;background-color: black;text-align: center;margin-top: 50px;">COMET MP XD</div>
+{% endblock %}

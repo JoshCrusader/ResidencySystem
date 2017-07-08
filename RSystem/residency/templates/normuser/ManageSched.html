@@ -1,0 +1,170 @@
+{% extends 'normuser/homepage.html' %}
+{% block scriptpage %}
+    {% load staticfiles %}
+    <script src="{% static 'normie/loadscheds.js' %}"></script>
+    <script src="{% static 'normie/loadcubs.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'normie/cubs.css' %}" type = 'text/css'/>
+{% endblock %}
+{% block person %} {{ me.first_name }} {% endblock %}
+
+{% block body %}
+<div class = "main-body">
+        <div class = "body_container">
+        <div class = "panel panel-default">
+        <div class = "panel-body" style = "overflow-x: auto;">
+             <div id = "eventNotifs"></div>
+            <form id = "timeinput">
+                <select id = "dayval">
+                  <option value="1">Monday</option>
+                  <option value="2">Tuesday</option>
+                  <option value="3">Wednesday</option>
+                  <option value="4">Thursday</option>
+                  <option value="5">Friday</option>
+                </select>
+                <input id = "mysched" type = "time" value = "07:30">
+                <input id = "endsched" type = "time" value = "10:45">
+                <input type = "submit" name = "submit" value="Enter Schedule">
+            </form>
+
+
+
+            <div class = "panel panel-default col-md-12" style = "height:600px;" align="center">
+
+                <div class = "panel-body">
+
+            {% load staticfiles %}
+            <img src="{% static 'triangles.jpg' %}" style = "Position:absolute;width: 1045px;height: 475px;margin-left:-50%;Transform: TranslateX(30px)">
+                   <div class = "col-md-2 headtable">Time</div>
+                    <div class = "col-md-2 headtable">Monday</div>
+                    <div class = "col-md-2 headtable">Tuesday</div>
+                    <div class = "col-md-2 headtable">Wednesday</div>
+                    <div class = "col-md-2 headtable">Thursday</div>
+                    <div class = "col-md-2 headtable">Friday</div>
+
+                    <div class = "col-md-2 timebox">07:30 AM - 09:00 AM</div>
+                    <!-- My timey -->
+                            {% for i in "12345" %}
+                                    <div class = "col-md-2 timeslot">
+
+
+                                </div>
+                            {% endfor %}
+                    <div class = "col-md-2 timebox">09:15 AM - 10:45 AM</div>
+                    <!-- My timey -->
+                            {% for i in "12345" %}
+                                    <div class = "col-md-2 timeslot">
+
+
+                                </div>
+                            {% endfor %}
+                    <div class = "col-md-2 timebox">11:00 AM - 12:30 PM</div>
+                    <!-- My timey -->
+                            {% for i in "12345" %}
+                                    <div class = "col-md-2 timeslot">
+
+
+                                </div>
+                            {% endfor %}
+                    <div class = "col-md-2 timebox">12:45 PM - 02:15 PM</div>
+                    <!-- My timey -->
+                            {% for i in "12345" %}
+                                    <div class = "col-md-2 timeslot">
+
+
+                                </div>
+                            {% endfor %}
+                    <div class = "col-md-2 timebox">02:30 PM - 04:00 PM</div>
+                    <!-- My timey -->
+                            {% for i in "12345" %}
+                                    <div class = "col-md-2 timeslot">
+
+
+                                </div>
+                            {% endfor %}
+                    <div class = "col-md-2 timebox">04:15 PM - 05:45 PM</div>
+                    <!-- My timey -->
+                            {% for i in "12345" %}
+                                    <div class = "col-md-2 timeslot">
+
+
+                                </div>
+                            {% endfor %}
+                    {% for i in scheds %}
+                        <div class = "col-md-2 doneSlot" day = "{{ i.day }}" ssched = "{{ i.start }}" esched = "{{ i.end }}" style = "height:140px;background-color: rgba(0,255,0,0.5);Position:absolute;transform: translateX(173px) translateY(55px);"></div>
+
+                    {% endfor %}
+                    <div class = "col-md-2" id = "mySlot" style = "height:140px;background-color: rgba(255,0,0,0.5);Position:absolute;transform: translateX(172px) translateY(55px);"></div>
+
+                </div>
+
+            </div>
+            <select id = "cubval">
+                  <option value="LEXELL">LEXELL</option>
+                  <option value="BORRELY">BORRELY</option>
+                  <option value="MCNAUGHT">MCNAUGHT</option>
+                  <option value="ENCKE">ENCKE</option>
+            </select>
+            <h3 id = "cuname">MCNAUGHT</h3>
+
+            <div id = "LEXELL">
+                <div class = "cubheader">
+                    <div class = "col-md-7 aslot 0slot0">Time</div>
+                    <div class = "col-md-1 aslot 0slot1">M</div>
+                    <div class = "col-md-1 aslot 0slot2">T</div>
+                    <div class = "col-md-1 aslot 0slot3">W</div>
+                    <div class = "col-md-1 aslot 0slot4">H</div>
+                    <div class = "col-md-1 aslot 0slot5">F</div>
+                </div>
+                <div class = "cubheader time1">
+                    <div class = "col-md-7 aslot 1slot0">07:30 a.m. - 09:00 a.m.</div>
+                    <div class = "col-md-1 aslot 1slot1"></div>
+                    <div class = "col-md-1 aslot 1slot2"></div>
+                    <div class = "col-md-1 aslot 1slot3"></div>
+                    <div class = "col-md-1 aslot 1slot4"></div>
+                    <div class = "col-md-1 aslot 1slot5"></div>
+                </div>
+                <div class = "cubheader time2">
+                    <div class = "col-md-7 aslot 2slot0">09:15 a.m. - 10:45 a.m.</div>
+                    <div class = "col-md-1 aslot 2slot1"></div>
+                    <div class = "col-md-1 aslot 2slot2"></div>
+                    <div class = "col-md-1 aslot 2slot3"></div>
+                    <div class = "col-md-1 aslot 2slot4"></div>
+                    <div class = "col-md-1 aslot 2slot5"></div>
+                </div>
+                <div class = "cubheader time3">
+                    <div class = "col-md-7 aslot 3slot0">11:00 a.m. - 12:30 p.m.</div>
+                    <div class = "col-md-1 aslot 3slot1"></div>
+                    <div class = "col-md-1 aslot 3slot2"></div>
+                    <div class = "col-md-1 aslot 3slot3"></div>
+                    <div class = "col-md-1 aslot 3slot4"></div>
+                    <div class = "col-md-1 aslot 3slot5"></div>
+                </div>
+                <div class = "cubheader time4">
+                    <div class = "col-md-7 aslot 4slot0">12:45 p.m. - 2:15 p.m.</div>
+                    <div class = "col-md-1 aslot 4slot1"></div>
+                    <div class = "col-md-1 aslot 4slot2"></div>
+                    <div class = "col-md-1 aslot 4slot3"></div>
+                    <div class = "col-md-1 aslot 4slot4"></div>
+                    <div class = "col-md-1 aslot 4slot5"></div>
+                </div>
+                <div class = "cubheader time5">
+                    <div class = "col-md-7 aslot 5slot0">02:30 p.m. - 04:00 p.m.</div>
+                    <div class = "col-md-1 aslot 5slot1"></div>
+                    <div class = "col-md-1 aslot 5slot2"></div>
+                    <div class = "col-md-1 aslot 5slot3"></div>
+                    <div class = "col-md-1 aslot 5slot4"></div>
+                    <div class = "col-md-1 aslot 5slot5"></div>
+                </div>
+                <div class = "cubheader time6">
+                    <div class = "col-md-7 aslot 6slot0">04:15 p.m. - 05:45 p.m.</div>
+                    <div class = "col-md-1 aslot 6slot1"></div>
+                    <div class = "col-md-1 aslot 6slot2"></div>
+                    <div class = "col-md-1 aslot 6slot3"></div>
+                    <div class = "col-md-1 aslot 6slot4"></div>
+                    <div class = "col-md-1 aslot 6slot5"></div>
+                </div>
+            </div>
+        </div>
+        </div>
+</div>
+{% endblock %}

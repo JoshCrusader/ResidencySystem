@@ -1,0 +1,135 @@
+{% extends 'normuser/homepage.html' %}
+
+{% block person %} {{ me.first_name }} {% endblock %}
+
+{% block body %}
+<div class = "main-body">
+            <div class = "body_container">
+            <div class = "panel panel-default" width>
+            <div class = "panel-body" style = "overflow-x: auto;">
+                    <br>
+                    <h1 style = "width:100%; text-align: center;">{{ proj.name }}</h1>
+                    <hr>
+                    <div class="panel panel-default col-md-12">
+                        <h2>Specs</h2>
+                      <div class="panel-body">
+                          <p style = "color:blue;">{{ proj.stat }}</p>
+                          <p>{{ proj.specs|linebreaks }}</p>
+                      </div>
+                    </div>
+
+                    <div class="panel panel-default col-md-3">
+                      <div class="panel-body">
+                          <h3>Objectives</h3>
+                            <div class="progress">
+                              <div class="progress-bar progress-bar-striped active" role="progressbar"
+                              aria-valuenow="{{ perc }}" aria-valuemin="0" aria-valuemax="100" style="width:{{ perc }}%;color:white;">
+                                  {{ perc }}%
+                              </div>
+                            </div>
+                          {% for i in objectives %}
+                            <div class="checkbox">
+                              <label><input type="checkbox" class = "objectbox" value="{{ i.id }}"
+                              {% if i.done == True %}
+                                  checked
+                              {% endif %}>{{ i.name }}</label>
+                            </div>
+                          {% endfor %}
+                      </div>
+                    </div>
+
+                    <div class="panel panel-default col-md-6 pull-right">
+                      <div class="panel-body">
+                          {% if proj.team == None %}
+                            <h2>There is no team assigned to this project</h2>
+                          {% else %}
+                              <h2>{{ proj.team.name }}</h2>
+                              <p>Team members</p>
+                              <ul>
+                              {% for x in members %}
+                                <li>{{ x.0.user.first_name }} {{ x.0.user.last_name }} (<input class = "roletype" type = "text" value = "{{ x.1 }}" accid =  "{{ x.0.id }}" projid = "{{ proj.id }}">)</li>
+                              {% endfor %}
+                              </ul>
+                          {% endif %}
+                      </div>
+                    </div>
+            <div class = "col-md-12">
+
+    <div class="container">
+        <div class="page-header">
+            <hr>
+            <h1 id="timeline" align="center">Progress</h1>
+        </div>
+        <!-- Trigger the modal with a button -->
+          <button type="button" class="btn" data-toggle="modal" data-target="#myModal" id = "CreateTeam">Submit progress</button>
+
+          <!-- Modal -->
+          <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+
+              <!-- Modal content-->
+              <div class="modal-content">
+                  <form id = "progress_form">
+                      {% csrf_token %}
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      <h4 class="modal-title">Submit progress report</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="form-group">
+                          <label for="usr">Enter progress:</label>
+                            <textarea onkeyup="update(this)" class="form-control" rows="10" id="PROG" name = "PROG" myid = "{{ account.id }}" projid = "{{ proj.id }}"></textarea>
+
+                        </div>
+                    </div>
+
+
+                    <div class="modal-footer">
+                        <input type = "submit" class="btn btn-primary btn-md"  name = "submit" value = "Post report" id = "">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                  </form>
+              </div>
+
+            </div>
+          </div>
+            <!-- Modal -->
+        <ul class="timeline">
+        {%  for i in myprogs %}
+            {% if forloop.counter0|divisibleby:2 %}
+                <li class="timeline">
+                      <div class="timeline-badge"><i class="glyphicon glyphicon-check"></i></div>
+                      <div class="timeline-panel">
+                        <div class="timeline-heading">
+                          <h4 class="timeline-title">{{ i.user.first_name }} {{ i.user.last_name }}</h4>
+                          <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> {{ i.cdate }}</small></p>
+                        </div>
+                        <div class="timeline-body">
+                            <p>{{ i.value|linebreaks }}</p>
+                        </div>
+                      </div>
+                    </li>
+            {% else %}
+                    <li class="timeline-inverted">
+                      <div class="timeline-badge"><i class="glyphicon glyphicon-check"></i></div>
+                      <div class="timeline-panel">
+                        <div class="timeline-heading">
+                          <h4 class="timeline-title">{{ i.user.first_name }} {{ i.user.last_name }}</h4>
+                          <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> {{ i.cdate }}</small></p>
+                        </div>
+                        <div class="timeline-body">
+                            <p>{{ i.value|linebreaks }}</p>
+                        </div>
+                      </div>
+                    </li>
+            {% endif %}
+        {% endfor %}
+        </ul>
+    </div>
+</div>
+        </div>
+        </div>
+        </div>
+</div>
+{% endblock %}
